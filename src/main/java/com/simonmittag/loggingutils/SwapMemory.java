@@ -26,7 +26,11 @@ public class SwapMemory extends Memory {
         sb.append(TOTAL_SWAP_MEM_MB);
         sb.append(totalMB);
         sb.append(FREE_SWAP_MEM_PERCENT);
-        sb.append(percent.format(100 * (float) freeMB / totalMB));
+        try {
+            sb.append(percent.format(100 * (float) freeMB / totalMB));
+        } catch (Exception e) {
+            sb.append("0");
+        }
         return sb.toString();
     }
 }
