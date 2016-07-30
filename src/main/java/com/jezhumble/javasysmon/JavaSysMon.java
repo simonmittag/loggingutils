@@ -68,6 +68,8 @@ public class JavaSysMon implements Monitor {
      * in a format similar to the UNIX top command. Optionally you can
      * specify a process id as an argument, in which case JavaSysMon
      * will attempt to kill the process specified by that pid.
+     * @param params CLI args
+     * @throws Exception exception
      */
     public static void main (String[] params) throws Exception {
         if (monitor instanceof NullMonitor) {

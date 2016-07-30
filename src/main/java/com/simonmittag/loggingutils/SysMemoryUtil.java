@@ -6,17 +6,40 @@ import com.jezhumble.javasysmon.JavaSysMon;
  * Wrapper object for Unix system memory, uses embedded Javasysmon
  */
 public class SysMemoryUtil {
-    static boolean run = true;
-    static Thread updaterThread;
-    static Memory physical;
-    static Memory swap;
-    static final long CPU_WAIT = 1000;
 
+    /**
+     * Set this to false to stop the updater
+     */
+    static boolean run = true;
+
+    /**
+     * Updater Thread
+     */
+    static Thread updaterThread;
+
+    /**
+     * Value for physical RAM
+     */
+    static Memory physical;
+
+    /**
+     * Value for OS swap memory
+     */
+    static Memory swap;
+
+    /**
+     * Sleep for this period
+     */
+    static final long MEM_WAIT = 1000;
+
+    /**
+     * Our background updater. Memory stats are update once every MEM_WAIT interval
+     */
     static Runnable updater = new Runnable() {
         public void run() {
             while (run) {
                 try {
-                    Thread.sleep(CPU_WAIT);
+                    Thread.sleep(MEM_WAIT);
                 } catch (InterruptedException e) {
                     //do nothing
                 }
@@ -27,7 +50,7 @@ public class SysMemoryUtil {
     };
 
     /**
-     * Physical memory stats are update once every CPU_WAIT interval
+     * Init the thread
      */
     public static void init() {
         physical = physical();
@@ -36,6 +59,9 @@ public class SysMemoryUtil {
         updaterThread.start();
     }
 
+    /**
+     * Destroy the thread
+     */
     public static void destroy() {
         run = false;
         updaterThread = null;
@@ -44,7 +70,7 @@ public class SysMemoryUtil {
     /**
      * Returns Memory[] for printing physical and swap memory stats
      *
-     * @return Memory[]
+     * @return Memory[] stats
      */
     public static Memory[] stats() {
         return new Memory[]{physicalStats(), swapStats()};
@@ -52,6 +78,8 @@ public class SysMemoryUtil {
 
     /**
      * Returns Memory object for printing physical memory stats.
+     *
+     * @return Memory stats
      */
     public static Memory physicalStats() {
         return physical;
@@ -60,7 +88,7 @@ public class SysMemoryUtil {
     /**
      * Returns Memory object for printing swap memory stats
      *
-     * @return Memory
+     * @return Memory swap stats
      */
     public static Memory swapStats() {
         return swap;
@@ -69,7 +97,7 @@ public class SysMemoryUtil {
     /**
      * Internal JavaSysMon wrapper for physical memory
      *
-     * @return Memory
+     * @return Memory physical memory stats
      */
     private static Memory physical() {
         try {
@@ -83,7 +111,7 @@ public class SysMemoryUtil {
     /**
      * Internal JavaSysMon wrapper for swap memory
      *
-     * @return Memory
+     * @return Memory swap memory stats
      */
     private static Memory swap() {
         try {

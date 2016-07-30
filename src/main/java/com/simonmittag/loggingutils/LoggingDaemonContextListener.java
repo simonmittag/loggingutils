@@ -9,14 +9,29 @@ import javax.servlet.ServletContextListener;
 
 /**
  * Start the logging daemon by adding it to web.xml as a ServletContextListener
+ * This is for Servlet containers such as Tomcat.
  */
 public class LoggingDaemonContextListener implements ServletContextListener {
 
+    /**
+     * Default port for Tomcat
+     */
     public static int TCP_PORT=8080;
 
+    /**
+     * Our background Thread
+     */
     protected Thread daemon;
+
+    /**
+     * Logger instance
+     */
     protected Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * This is to bootstrap the listener.
+     * @param sce ServletContextEvent
+     */
     public void contextInitialized(ServletContextEvent sce) {
         try {
             ServletContext c = sce.getServletContext();
@@ -42,6 +57,10 @@ public class LoggingDaemonContextListener implements ServletContextListener {
         }
     }
 
+    /**
+     * Shut down the listener
+     * @param sce ServletContextEvent
+     */
     public void contextDestroyed(ServletContextEvent sce) {
         try {
             LoggingDaemon.off();

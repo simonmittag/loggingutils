@@ -6,12 +6,20 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * This TomcatThreadUtil talks to the Tomcat MBean Server to read the Threadpool config.
  * @author Simon Mittag
  */
 public class TomcatThreadUtil {
 
+    /**
+     * This is our MBean filter
+     */
     private static final String TYPE_THREAD_POOL = "*:type=ThreadPool,*";
 
+    /**
+     * Get Tomcat stats
+     * @return stats
+     */
     public static TomcatThreads stats() {
         TomcatThreads tomcatThreads = new TomcatThreads();
         tomcatThreads.current = 0;
@@ -34,6 +42,13 @@ public class TomcatThreadUtil {
         return tomcatThreads;
     }
 
+    /**
+     * Talk to the MBean Server in Tomcat and find attribute
+     * @param mbeanServer The MBean server
+     * @param attribute The attribute to look for
+     * @return a Config object, comes back as java.lang.Object
+     * @throws Exception if it goes wrong, however we try to avoid that in here.
+     */
     private static Object findThreadPoolAttribute(MBeanServer mbeanServer, String attribute) throws Exception {
         Object rval = null;
         try {

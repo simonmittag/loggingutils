@@ -4,10 +4,18 @@ package com.simonmittag.loggingutils;
  * Logging utils is a convenience object for logging all system stats
  */
 public class LoggingUtils {
+
+    /**
+     * Constants
+     */
     protected static final String COMMA = ", ";
     protected static int attempts = 1;
     protected static int sleep = 1 * 1000;
 
+    /**
+     * Print all stats in one line of text
+     * @return formatted statement for printing
+     */
     public static String printStats() {
         StringBuffer sb = new StringBuffer();
         CPUPercentage pc = CPUUtil.stats();
@@ -42,16 +50,26 @@ public class LoggingUtils {
         return s;
     }
 
+    /**
+     * Init
+     */
     public static void init() {
         SysMemoryUtil.init();
         CPUUtil.init();
     }
 
+    /**
+     * destroy
+     */
     public static void destroy() {
         SysMemoryUtil.destroy();
         CPUUtil.destroy();
     }
 
+    /**
+     * Run this interactively to see CLI output
+     * @param args String array with -t and -n. See eval.
+     */
     public static void main(String[] args) {
         eval(args);
 
@@ -68,6 +86,10 @@ public class LoggingUtils {
 
     }
 
+    /**
+     * Parse the CLI args
+     * @param args -n repeats and -t pause in seconds
+     */
     private static void eval(String[] args) {
         try {
             if (args != null & args.length > 0) {

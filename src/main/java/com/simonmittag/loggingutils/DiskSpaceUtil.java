@@ -3,9 +3,13 @@ package com.simonmittag.loggingutils;
 import java.io.File;
 
 /**
- * DiskSpaceMemory util, prints currently free disk space.
+ * DiskSpaceUtil, prints currently free disk space.
  */
 public class DiskSpaceUtil {
+
+    /**
+     * Root file system
+     */
     protected static File disk;
 
     /**
@@ -17,8 +21,7 @@ public class DiskSpaceUtil {
 
     /**
      * Returns a DiskSpaceMemory object you can use to print current free space.
-     *
-     * @return
+     * @return DiskSpaceMemory
      */
     public static DiskSpaceMemory stats() {
         return new DiskSpaceMemory((long) (disk.getFreeSpace() / 1024f / 1024f), (long) (disk.getTotalSpace() / 1024f / 1024f));

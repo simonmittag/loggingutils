@@ -7,10 +7,26 @@ import java.text.NumberFormat;
  * Current CPU percentage wrapper object for print
  */
 public class CPUPercentage {
+
+    /**
+     * We print key=value pairs
+     */
     protected static final String USED_CPUPERCENT = "usedCPUPercent=";
+
+    /**
+     * NumberFormat with 2 decimal places only
+     */
     protected NumberFormat nf;
+
+    /**
+     * Our CPU consumption
+     */
     protected float consumed;
 
+    /**
+     * Create instance for consumed value
+     * @param consumed memory
+     */
     public CPUPercentage(float consumed) {
         this.consumed = consumed;
         this.nf = new DecimalFormat();
@@ -21,6 +37,9 @@ public class CPUPercentage {
         nf.setMaximumIntegerDigits(2);
     }
 
+    /**
+     * Format this for stdout
+     */
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();

@@ -4,13 +4,33 @@ import com.jezhumble.javasysmon.CpuTimes;
 import com.jezhumble.javasysmon.JavaSysMon;
 
 /**
- * Returns CPU usage data. Wrapper class around embedded Javasysmon project.
+ * Returns CPU usage data, updates every CPU_WAIT period in background
  */
 public class CPUUtil {
+
+    /**
+     * Set this to false if you have to terminate the runner
+     */
     static boolean run = true;
+
+    /**
+     * CPUPercentage
+     */
     static CPUPercentage cpu;
+
+    /**
+     * Wait for this period in milliseconds before updating
+     */
     static final long CPU_WAIT = 1000;
+
+    /**
+     * Background thread for updating
+     */
     static Thread updaterThread;
+
+    /**
+     * Runnable for updating
+     */
     static Runnable updater = new Runnable() {
         public void run() {
             while (run) {
@@ -33,6 +53,9 @@ public class CPUUtil {
         updaterThread.start();
     }
 
+    /**
+     * Shut down background updating
+     */
     public static void destroy() {
         run = false;
         updaterThread = null;
@@ -41,16 +64,16 @@ public class CPUUtil {
     /**
      * Call this and use CPUPercentage in your log statement
      *
-     * @return
+     * @return CPUPercentage
      */
     public static CPUPercentage stats() {
         return cpu;
     }
 
     /**
-     * Create a sysmon and pull CPU usage for CPU_WAIT interval.
+     * Create a sysmon and pull CPU usage for CPU_WAIT interval directly
      *
-     * @return
+     * @return CPUPercentage
      */
     private static CPUPercentage utilizedPercentage() {
         try {

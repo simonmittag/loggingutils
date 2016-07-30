@@ -9,8 +9,20 @@ import java.text.NumberFormat;
  * Memory supertype, do not instantiate me, use PhysicalMemory, SwapMemory or DiskSpaceMemory instead.
  */
 public abstract class Memory {
+
+    /**
+     * Format as two digits
+     */
     NumberFormat percent;
+
+    /**
+     * Free MB memory
+     */
     long freeMB;
+
+    /**
+     * Total MB memory
+     */
     long totalMB;
 
     /**
@@ -26,7 +38,7 @@ public abstract class Memory {
     }
 
     /**
-     * Build a memory object with values.
+     * Build a memory object with values instead.
      *
      * @param freeMB  free memory in megabytes.
      * @param totalMB total memory in megabytes
@@ -40,7 +52,7 @@ public abstract class Memory {
     /**
      * Build a memory object from Sysmon MemoryStats
      *
-     * @param stats
+     * @param stats the memory stats
      */
     public Memory(MemoryStats stats) {
         this();
