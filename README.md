@@ -3,12 +3,23 @@ Loggingutils
 
 Loggingutils is a small and simple wrapper around JavaSysMon (https://github.com/jezhumble/javasysmon) by Jez Humble. It prints system stats to the standard logging system (via commons-logging) in regular intervals.
 
-Building and running
+Building from source
 --------------------
 
 Use maven to build:
 
     mvn clean package
+
+Import
+------
+
+Declare as maven dependency
+
+    <dependency>
+      <groupId>com.simonmittag</groupId>
+      <artifactId>loggingutils</artifactId>
+      <version>1.0</version>
+    </dependency>
 
 Using the library from Servlet container
 ----------------------------------------
